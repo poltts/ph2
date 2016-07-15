@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__DIR__) . '/config.php';
-// echo DB_HOST;
+
 class Db{
 
 	private static $instance;
@@ -21,7 +21,7 @@ class Db{
 	private function __construct()
 	{
 		try {
-			$this->connection = new \PDO('mysql:host='.$this->db_host.';dbname='.$this->db_name.';charset=utf8', $this->db_user, $this->db_pass);
+			$this->connection = new PDO('mysql:host='.$this->db_host.';dbname='.$this->db_name.';charset=utf8', $this->db_user, $this->db_pass);
 		} catch (Exception $e) {
 			echo $e->getMessage();
 		}

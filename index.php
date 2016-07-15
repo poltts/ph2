@@ -20,7 +20,7 @@
 						<nav class="navbar  ">
 					        <ul class="nav nav-pills">
 							  <li role="presentation" class="active"><a href="index.php">Home</a></li>
-							  <li role="presentation"><a href="index.php?page=inserir&amp;action=add">Adicionar Produto</a></li>
+							  <li role="presentation"><a href="index.php?page=add&amp;action=add">Adicionar Produto</a></li>
 							  <!-- <li role="presentation"><a href="#">Galeria Produtos</a></li> -->
 							</ul>
 					      </nav> 

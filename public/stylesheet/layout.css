@@ -24,3 +24,21 @@ header{
 	padding: 1em;
 	text-align: center;
 }
+
+table.table{
+	width: 90%;
+	margin: 0px auto;
+	text-align: center;
+
+}
+table.table td{
+	vertical-align: middle;
+}
+table.table td span{ margin-right: .5em; }
+table.table td > img,
+fieldset > label + img{
+	width: 8em;
+	height: 8em;
+	float: left;
+	margin-right: 1em;
+}

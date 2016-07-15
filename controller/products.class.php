@@ -14,20 +14,14 @@ class Products extends Db{
 	public function list_products($id = '')
 	{
 		if($id){
-		$sql = "SELECT * FROM products WHERE id = $id";
-		$sth = $this->conn->prepare($sql);
-		$sth->execute();
-		$result = $sth->fetchAll();
+			$sql = "SELECT * FROM products WHERE id = $id";
+			$sth = $this->conn->prepare($sql);
+			$sth->execute();
+			$result = $sth->fetchAll();
 
-		return $result;
+			return $result;
 
-		}
-		$sql = "SELECT * FROM products WHERE id = $id";
-		$sth = $this->conn->prepare($sql);
-		$sth->execute();
-		$result = $sth->fetchAll();
-
-		return $result;
+		} 
 	}	
 
 	public function view()
@@ -40,27 +34,27 @@ class Products extends Db{
 
     	if($result){
 
-    		echo '<table class="table">
+    		echo '<table class="table table-striped table-bordered table-hover table-condensed">
 					  <thead class="thead-inverse">
 					    <tr>
-					      <th>#</th>
 					      <th>Nome</th>
 					      <th>Imagem</th>
 					      <th>Preço</th>
 					      <th>Ativo</th>
+					      <th>Actions</th>
 					    </tr>
-					  </thead>';
+					  </thead><tbody>';
 
 			foreach ($result as $row) {
 				$ativo = $row['active'] ? 'sim' : 'não';
-				echo ' <tr>
-						 <th scope="row"></th>
-						    <td>'.$row['name'].'</td>
-						    <td><img src="'.$row['images'].'" /></td>
-						    <td>'.number_format($row['price']).'</td>
+				$imgSrc = URL . "public/uploads/".$row['images'];
+				echo ' <tr> 
+						    <td>'.unserialize($row['name']).'</td>
+						    <td><img src="'.$imgSrc.'" /></td>
+						    <td>R$ '.$row['price'].'</td>
 						    <td>'.$ativo.'</td>
-						    <td><a href="index.php?page=editar&amp;action=edit&amp;pd='.urlencode($row['id']).'"><span class="glyphicon glyphicon-pencil"></span></a>
-						    <a href="index.php?page=home&amp;action=delete&amp;pd='.urlencode($row['id']).'"><span class="glyphicon glyphicon-remove"></span></a></td>
+						    <td><a href="index.php?page=edit&amp;action=edit&amp;pd='.urlencode($row['id']).'"><span class="glyphicon glyphicon-pencil"></span></a>
+						    <a href="index.php?page=delete&amp;action=delete&amp;pd='.urlencode($row['id']).'"><span class="glyphicon glyphicon-remove"></span></a></td>
 						</tr>';
 			}	
 
@@ -89,16 +83,20 @@ class Products extends Db{
 		}
 	}
 
-	public function delete($id)
+	public function remove($id = null)
 	{
-		// $product_id = unserialize($
-		$sql = "DELETE FROM products WHERE id = $id ";
 		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$delete = $this->conn->prepare($sql);
+		$get_img = $this->conn->prepare("SELECT images FROM products WHERE id=$id");
+		$get_img->execute();
+		$img = $get_img->fetchAll();	
+		if($img[0]['images'] !== ""){
+			unlink(dirname(__DIR__) . '/public/uploads/'.$img[0]['images']);	
+		}
+		$sql = "DELETE FROM products WHERE id=". $id . " ";
+		
 		try {
-			
-			$delete->exec();
-			echo "Produto deletado com sucesso!";
+			$delete = $this->conn->exec($sql); 
+			header('Location: '. URL);
 			
 		} catch (Exception $e) {
 			echo $e->getMessage();
@@ -107,7 +105,7 @@ class Products extends Db{
 
 	public function add($name, $description, $price, $active, $image)
 	{
-		$sql = "INSERT INTO products(name,description,price,active,images) VALUES('$name', '$description', $price , $active , '$image') ";
+		$sql = "INSERT INTO products(name, description, images, price, active) VALUES('$name', '$description', '$image', '$price' , '$active') ";
 		$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
 		try {

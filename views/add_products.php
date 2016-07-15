@@ -22,7 +22,7 @@
     <label class="sr-only" for="product_price">Preço</label>
     <div class="input-group">
       <div class="input-group-addon">R$</div>
-      <input type="number" name="product_price" class="form-control" id="product_price" placeholder="Insira o preço do produto">
+      <input type="text" name="product_price" class="form-control" id="product_price" placeholder="Insira o preço do produto">
       
     </div>  
     

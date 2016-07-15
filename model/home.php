@@ -1,10 +1,15 @@
 <?php
-$products = new Products;
 
-if($action !== 'delete'){
+$products = new Products;
+if($action == "delete"){
+
+	$id = urldecode($_GET['pd']);
+	$products->remove($id);
+
+}else{ 
+	
 	$products->$action();
-}else{
-  $id = urldecode($_GET['pd']);
-  $products->delete($id);
+
 }
+
 ?>
