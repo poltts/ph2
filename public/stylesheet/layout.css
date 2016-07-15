@@ -1,0 +1,26 @@
+body{
+	margin: 0px;
+	padding: 0px;
+	font-family: arial, sans-serif;
+	font-size: 12px;
+	background: #f2f2f2;
+}
+
+main, header, section, article, figure, figcaption, p, h1, h2, h3, h4, h5, h6{
+	margin: 0px;
+	padding: 0px;
+	display: block;
+}
+.container-fluid{
+	text-align: center;
+}
+form.add-products{
+	text-align: left;
+	width: 30%;
+	margin: 1em auto;
+}
+
+header{
+	padding: 1em;
+	text-align: center;
+}
