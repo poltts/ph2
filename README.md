@@ -1,7 +1,9 @@
 #cadastro de prdutos exemplo.
-#projeto teste para ph2.
+<p>projeto teste para ph2.</p>
 
-*Renomei config.example.php para config.php
-*Modifique os dados.
+<ul>
+	<li>*Renomei config.example.php para config.php</li>
+	<li>*Modifique os dados.</li>
+</ul>
 
 p.s: projeto modificado na data 15/07/2016, os arquivo foram enviados errados e havia alguns bugs.
